@@ -45,8 +45,8 @@ Para usar todos os recursos — especialmente microfone e foto — prefira abrir
 ## O que ele faz
 
 - **Meu dia**: resumo de calorias e macros, cardápio com quatro refeições, registro de refeição feita e controle de hidratação.
-- **Trocar receitas**: cada refeição oferece seis opções. Ao trocar, o total de calorias, proteínas, carboidratos e gorduras é recalculado na hora.
-- **Receitas**: biblioteca com 24 receitas, busca por nome ou ingrediente, filtros por refeição e favoritas. Cada receita tem ingredientes, modo de preparo, informação nutricional e dica.
+- **Trocar receitas**: cada refeição oferece até dez opções. Ao trocar, o total de calorias, proteínas, carboidratos e gorduras é recalculado na hora.
+- **Receitas**: biblioteca com 39 receitas, busca por nome ou ingrediente, filtros por refeição e favoritas. Cada receita tem ingredientes, modo de preparo, informação nutricional e dica.
 - **Plano semanal**: visão dos sete dias, médias da semana e geração de uma nova variação do cardápio com um clique.
 - **Lista de compras**: ingredientes da semana somados automaticamente, visão do dia ou da semana, itens comprados e adição de itens extras.
 - **Perfil**: nome, objetivo, meta calórica e meta de água. As metas ficam salvas no próprio navegador.
@@ -88,9 +88,22 @@ A estimativa é visual: molhos, óleo e porções escondidas podem mudar bastant
 
 Com a API configurada, as respostas são geradas pelo modelo `deepseek-flash` e retornam junto com ações estruturadas (abrir uma receita, trocar uma refeição, registrar água etc.). Sem chave, o motor local em `chatbot.js` assume automaticamente.
 
-A Nina recebe o contexto completo do app — ingredientes e quantidades das 24 receitas, modo de preparo, plano dos sete dias, lista de compras e metas — e é instruída a não inventar dados do app. Para perguntas gerais, ela usa conhecimento nutricional e culinário, com estimativas sinalizadas. As ações retornadas pela IA são validadas contra o catálogo antes de chegar à interface. Se a DeepSeek falhar, a resposta é explícita em vez de usar uma suposição; tentativas temporárias são repetidas automaticamente.
+A Nina recebe o contexto completo do app — ingredientes e quantidades das 39 receitas, modo de preparo, plano dos sete dias, lista de compras e metas — e é instruída a não inventar dados do app. Para perguntas gerais, ela usa conhecimento nutricional e culinário, com estimativas sinalizadas. As ações retornadas pela IA são validadas contra o catálogo antes de chegar à interface. Se a DeepSeek falhar, a resposta é explícita em vez de usar uma suposição; tentativas temporárias são repetidas automaticamente.
 
 **Privacidade:** ao usar a API, o contexto do plano — e a foto, quando anexada — é enviado ao servidor local e deste para a DeepSeek para gerar a resposta. O áudio do ditado é tratado pelo serviço de voz do navegador, não pelo servidor do app. No modo local, nada relacionado ao texto sai do navegador. A chave nunca é exposta ao cliente.
+
+## Novas receitas e referências
+
+O catálogo passou de 24 para **39 receitas**. As 15 novas opções privilegiam ingredientes acessíveis, vegetais, leguminosas, ovos, aveia e peixes, com preparos curtos. A curadoria usou como referência:
+
+- [BBC Good Food — Healthy recipes](https://www.bbcgoodfood.com/recipes/collection/healthy-recipes)
+- [EatingWell — 30 healthy dinners in 30 minutes](https://www.eatingwell.com/healthy-dinner-recipes-you-can-make-in-30-minutes-11748565)
+- [NHS — Healthy meal ideas](https://plr.cht.nhs.uk/download/296/Healthy%20Meal%20Ideas%20A4)
+- [Ministério da Saúde — Guia Alimentar para a População Brasileira](https://bvsms.saude.gov.br/bvs/publicacoes/protocolos_guia_alimentar_fasciculo5.pdf)
+
+As receitas, quantidades e estimativas nutricionais foram adaptadas para o formato do app. Os valores são aproximados e não substituem rótulos, medidas caseiras ou orientação profissional.
+
+As fotos novas vêm do [Foodiesfeed](https://www.foodiesfeed.com/), em CC0/domínio público. Os links de origem estão em [assets/PHOTO-CREDITS.md](assets/PHOTO-CREDITS.md).
 
 ## Estrutura
 
@@ -131,7 +144,7 @@ Importante: **GitHub Pages não executa `server.js`**. Em uma página estática 
 - A chave da DeepSeek nunca deve ser colocada no front-end, no `index.html` ou em um repositório. Use o `.env`, que está no `.gitignore`.
 - A Nina oferece orientações do próprio app e não substitui acompanhamento nutricional.
 - Calorias e macronutrientes são estimativas por porção e o conteúdo é ilustrativo; não substitui acompanhamento profissional.
-- Fotografias de alimentos: [Unsplash](https://unsplash.com). Tipografia: Fraunces e DM Sans (Google Fonts, licença SIL OFL).
+- Fotografias de alimentos: [Unsplash](https://unsplash.com) e [Foodiesfeed](https://www.foodiesfeed.com/) (CC0). Créditos das novas fotos em [assets/PHOTO-CREDITS.md](assets/PHOTO-CREDITS.md). Tipografia: Fraunces e DM Sans (Google Fonts, licença SIL OFL).
 
 ### Mobile
 
