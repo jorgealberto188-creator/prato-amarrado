@@ -1,0 +1,26 @@
+name: check
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Verificar sintaxe
+        run: npm run check
+
+      - name: Garantir que o .env não foi commitado
+        run: |
+          if git ls-files --error-unmatch .env >/dev/null 2>&1; then
+            echo "ERRO: o arquivo .env com segredos foi commitado."
+            exit 1
+          fi

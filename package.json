@@ -1,0 +1,14 @@
+{
+  "name": "prato",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplicativo de nutrição cotidiana com plano diário, receitas, lista de compras e assistente Nina com voz, foto e API DeepSeek.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check app.js && node --check chatbot.js && node --check data.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

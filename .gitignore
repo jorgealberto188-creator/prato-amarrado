@@ -1,0 +1,21 @@
+# Segredos locais
+.env
+.env.*
+!.env.example
+prato-github-token.txt
+*-github-token.txt
+*-token.txt
+
+# Dependências
+node_modules/
+
+# Ferramentas e testes locais
+.chrome-*
+test-*.png
+test-*.js
+api-test.js
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
