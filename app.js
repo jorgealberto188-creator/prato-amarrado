@@ -232,7 +232,7 @@ function initials(name) {
 }
 
 function firstNameOf(name) {
-  return String(name).trim().split(/\s+/)[0] || "Marina";
+  return String(name).trim().split(/\s+/)[0] || "Noelma";
 }
 
 function getRecipe(id) {
@@ -280,11 +280,23 @@ function freshState(seed = true) {
   return next;
 }
 
+function migrateLegacyProfile(profile) {
+  if (!profile) return false;
+  if (profile.name === "Marina Costa" || profile.firstName === "Marina") {
+    profile.name = "Noelma Lião";
+    profile.firstName = "Noelma";
+    return true;
+  }
+  return false;
+}
+
 function normalizeState(parsed) {
   if (!parsed || typeof parsed !== "object") return null;
+  const profile = { ...DEFAULT_PROFILE, ...(parsed.profile || {}) };
+  migrateLegacyProfile(profile);
   return {
     version: 1,
-    profile: { ...DEFAULT_PROFILE, ...(parsed.profile || {}) },
+    profile,
     favorites: Array.isArray(parsed.favorites) ? parsed.favorites.filter((id) => getRecipe(id)) : [],
     plans: parsed.plans && typeof parsed.plans === "object" ? parsed.plans : {},
     water: parsed.water && typeof parsed.water === "object" ? parsed.water : {},
@@ -303,7 +315,13 @@ function loadState() {
       return initial;
     }
     const parsed = JSON.parse(raw);
-    return normalizeState(parsed) || freshState(true);
+    const normalized = normalizeState(parsed);
+    if (!normalized) return freshState(true);
+    const legacy = parsed.profile && (parsed.profile.name === "Marina Costa" || parsed.profile.firstName === "Marina");
+    if (legacy) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized)); } catch (_) { /* modo privado */ }
+    }
+    return normalized;
   } catch (_) {
     return freshState(true);
   }
@@ -394,7 +412,7 @@ function syncChrome() {
     else link.removeAttribute("aria-current");
   });
 
-  const name = state.profile.name || "Marina Costa";
+  const name = state.profile.name || "Noelma Lião";
   document.querySelectorAll("[data-avatar]").forEach((avatar) => {
     avatar.textContent = initials(name);
   });

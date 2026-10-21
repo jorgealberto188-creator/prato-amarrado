@@ -1053,8 +1053,8 @@ const WEEK_TEMPLATES = {
 };
 
 const DEFAULT_PROFILE = {
-  name: "Marina Costa",
-  firstName: "Marina",
+  name: "Noelma Lião",
+  firstName: "Noelma",
   goalLabel: "Emagrecimento saudável",
   calories: 1850,
   protein: 130,
