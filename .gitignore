@@ -19,3 +19,7 @@ api-test.js
 # Sistema operacional
 .DS_Store
 Thumbs.db
+
+.vercel
+.env*
+!.env.example

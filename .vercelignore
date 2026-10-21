@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+.git
+.github
+node_modules
+screenshots
+test-*.png
+test-*.js
+api-test.js
+*.log

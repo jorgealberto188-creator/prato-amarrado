@@ -16,7 +16,7 @@ const ROOT = __dirname;
 loadEnvFile(path.join(ROOT, ".env"));
 
 const PORT = Number(process.env.PORT) || 4173;
-const HOST = process.env.HOST || "127.0.0.1";
+const HOST = process.env.HOST || (process.env.VERCEL ? "0.0.0.0" : "127.0.0.1");
 const MODEL = (process.env.DEEPSEEK_MODEL || "deepseek-flash").trim();
 const API_BASE = (process.env.DEEPSEEK_BASE_URL || "https://api.deepseek.com").replace(/\/+$/, "");
 const API_KEY = String(process.env.DEEPSEEK_API_KEY || "").trim();
@@ -82,7 +82,7 @@ function securityHeaders(extra = {}) {
     "X-Content-Type-Options": "nosniff",
     "Referrer-Policy": "no-referrer",
     "X-Frame-Options": "DENY",
-    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    "Permissions-Policy": "camera=(self), microphone=(self), geolocation=()",
     ...extra
   };
 }
@@ -126,6 +126,10 @@ function sendText(res, status, message) {
 }
 
 function getClientIp(req) {
+  if (process.env.VERCEL || process.env.TRUST_PROXY === "1") {
+    const forwarded = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+    if (forwarded) return forwarded;
+  }
   return req.socket.remoteAddress || "local";
 }
 
@@ -148,6 +152,28 @@ function checkRateLimit(req) {
 }
 
 function readJsonBody(req, limit = MAX_BODY_BYTES) {
+  if (req.body !== undefined && req.body !== null) {
+    const raw = Buffer.isBuffer(req.body) ? req.body.toString("utf8") : req.body;
+    if (typeof raw === "object") {
+      try {
+        if (Buffer.byteLength(JSON.stringify(raw)) > limit) throw new HttpError(413, "payload_too_large", "A mensagem é muito grande.");
+        return Promise.resolve(raw);
+      } catch (error) {
+        if (error instanceof HttpError) return Promise.reject(error);
+      }
+    }
+    if (typeof raw === "string") {
+      if (Buffer.byteLength(raw) > limit) {
+        return Promise.reject(new HttpError(413, "payload_too_large", "A mensagem é muito grande."));
+      }
+      try {
+        return Promise.resolve(JSON.parse(raw || "{}"));
+      } catch (_) {
+        return Promise.reject(new HttpError(400, "invalid_json", "JSON inválido."));
+      }
+    }
+  }
+
   return new Promise((resolve, reject) => {
     const chunks = [];
     let total = 0;
@@ -899,31 +925,35 @@ const server = http.createServer((req, res) => {
   requestHandler(req, res);
 });
 
-server.listen(PORT, HOST, () => {
-  const displayHost = HOST === "0.0.0.0" ? "127.0.0.1" : HOST;
-  console.log("");
-  console.log("  Prato Amarrado no ar");
-  console.log(`  http://${displayHost}:${PORT}`);
-  console.log("");
-  if (API_KEY) {
-    console.log(`  Nina conectada à API DeepSeek · modelo ${MODEL}`);
-  } else {
-    console.log("  DEEPSEEK_API_KEY não encontrada.");
-    console.log("  Nina está no modo local. Crie um .env e reinicie para ativar a API.");
-  }
-  console.log("");
-});
+if (require.main === module) {
+  server.listen(PORT, HOST, () => {
+    const displayHost = HOST === "0.0.0.0" ? "127.0.0.1" : HOST;
+    console.log("");
+    console.log("  Prato Amarrado no ar");
+    console.log(`  http://${displayHost}:${PORT}`);
+    console.log("");
+    if (API_KEY) {
+      console.log(`  Nina conectada à API DeepSeek · modelo ${MODEL}`);
+    } else {
+      console.log("  DEEPSEEK_API_KEY não encontrada.");
+      console.log("  Nina está no modo local. Crie um .env e reinicie para ativar a API.");
+    }
+    console.log("");
+  });
 
-server.on("error", (error) => {
-  if (error.code === "EADDRINUSE") {
-    console.error(`A porta ${PORT} já está em uso. Defina outra porta com PORT=...`);
-  } else {
-    console.error("Não foi possível iniciar o servidor:", error);
-  }
-  process.exitCode = 1;
-});
+  server.on("error", (error) => {
+    if (error.code === "EADDRINUSE") {
+      console.error(`A porta ${PORT} já está em uso. Defina outra porta com PORT=...`);
+    } else {
+      console.error("Não foi possível iniciar o servidor:", error);
+    }
+    process.exitCode = 1;
+  });
 
-process.on("SIGINT", () => {
-  console.log("\nEncerrando o Prato Amarrado.");
-  server.close(() => process.exit(0));
-});
+  process.on("SIGINT", () => {
+    console.log("\nEncerrando o Prato Amarrado.");
+    server.close(() => process.exit(0));
+  });
+}
+
+module.exports = { requestHandler, server };

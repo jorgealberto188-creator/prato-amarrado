@@ -6,6 +6,10 @@ Aplicativo web de nutrição cotidiana com plano diário, troca de receitas em c
 
 **Repositório:** [github.com/jorgealberto188-creator/prato-amarrado](https://github.com/jorgealberto188-creator/prato-amarrado)
 
+### [Abrir o Prato Amarrado](https://prato-amarrado.vercel.app)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjorgealberto188-creator%2Fprato-amarrado&project-name=prato-amarrado&repository-name=prato-amarrado&env=DEEPSEEK_API_KEY&envDescription=Sua%20chave%20da%20API%20DeepSeek)
+
 ![Meu dia — visão desktop](screenshots/dashboard.png)
 
 ## Como abrir
@@ -136,7 +140,30 @@ screenshots/      capturas do aplicativo
 
 O repositório pode ser publicado normalmente no GitHub. O workflow em `.github/workflows/check.yml` verifica a sintaxe a cada push e falha se o `.env` for commitado.
 
-Importante: **GitHub Pages não executa `server.js`**. Em uma página estática do GitHub Pages, o app funciona em modo local, sem a Nina completa. Para manter a IA, o ditado e a análise de fotos, publique `server.js` em um serviço que rode Node (Render, Railway, Fly.io, VPS ou máquina local) e configure `DEEPSEEK_API_KEY` nas variáveis de ambiente desse serviço.
+**GitHub Pages não executa `server.js`**. Em uma página estática do GitHub Pages, o app funciona em modo local, sem a Nina completa. Para manter a IA, o ditado e a análise de fotos, publique `server.js` em um serviço que rode Node (Vercel, Railway, Fly.io, VPS ou máquina local) e configure `DEEPSEEK_API_KEY` nas variáveis de ambiente desse serviço.
+
+## Hospedagem na Vercel
+
+O projeto já inclui `vercel.json` e uma função catch-all em `api/[...path].js`, que reutiliza as mesmas rotas do servidor local (`/api/health`, `/api/chat` e `/api/food-photo`).
+
+1. Clique no botão **Deploy with Vercel** acima e entre com sua conta.
+2. Importe o repositório `prato-amarrado`.
+3. Em **Environment Variables**, adicione:
+   - `DEEPSEEK_API_KEY` = sua chave da DeepSeek;
+   - opcionalmente `DEEPSEEK_MODEL` = `deepseek-flash`.
+4. Faça o deploy. A URL ficará no formato `https://prato-amarrado.vercel.app`.
+
+O deploy atual está em **https://prato-amarrado.vercel.app** e usa `DEEPSEEK_API_KEY` configurada como variável de ambiente de produção na Vercel.
+
+Também é possível usar o CLI:
+
+```bash
+vercel
+vercel env add DEEPSEEK_API_KEY
+vercel --prod
+```
+
+A versão na Vercel usa funções serverless. Fotos são comprimidas no navegador antes do envio, e as funções têm limite de execução; por isso o app mantém timeouts e retentativas no servidor. Para uma aplicação pública, use uma chave DeepSeek dedicada, com limite de gastos, e acompanhe o consumo. O limite de requisições do app continua ativo.
 
 ## Observações
 
