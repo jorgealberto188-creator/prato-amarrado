@@ -1,6 +1,10 @@
 # prato.
 
+[![check](https://github.com/jorgealberto188-creator/prato-amarrado/actions/workflows/check.yml/badge.svg)](https://github.com/jorgealberto188-creator/prato-amarrado/actions/workflows/check.yml)
+
 Aplicativo web de nutrição cotidiana com plano diário, troca de receitas em cada refeição, lista de compras gerada a partir do cardápio e a **Nina**, uma assistente conversacional integrada.
+
+**Repositório:** [github.com/jorgealberto188-creator/prato-amarrado](https://github.com/jorgealberto188-creator/prato-amarrado)
 
 ![Meu dia — visão desktop](screenshots/dashboard.png)
 
