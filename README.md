@@ -1,4 +1,4 @@
-# prato.
+# Prato Amarrado
 
 [![check](https://github.com/jorgealberto188-creator/prato-amarrado/actions/workflows/check.yml/badge.svg)](https://github.com/jorgealberto188-creator/prato-amarrado/actions/workflows/check.yml)
 
@@ -74,7 +74,7 @@ Exemplos de pedidos: “o que tem no almoço?”, “quero algo leve para o jant
 
 ### Voz
 
-No rodapé do chat, toque em **Ditar** e fale. O texto reconhecido aparece no campo para você revisar antes de enviar. O ditado usa a Web Speech API do próprio navegador (Chrome/Edge) e pode exigir internet para o serviço de voz do navegador. O áudio não é gravado pelo servidor do prato.
+No rodapé do chat, toque em **Ditar** e fale. O texto reconhecido aparece no campo para você revisar antes de enviar. O ditado usa a Web Speech API do próprio navegador (Chrome/Edge) e pode exigir internet para o serviço de voz do navegador. O áudio não é gravado pelo servidor do Prato Amarrado.
 
 ### Foto
 
@@ -84,7 +84,7 @@ Toque em **Foto**, escolha ou tire uma foto da refeição e envie. A Nina usa a 
 
 A estimativa é visual: molhos, óleo e porções escondidas podem mudar bastante os valores. A imagem é processada em memória no servidor e não é gravada em disco; ela é enviada à DeepSeek para a análise.
 
-![Nina — assistente do prato](screenshots/chat.png)
+![Nina — assistente do Prato Amarrado](screenshots/chat.png)
 
 Com a API configurada, as respostas são geradas pelo modelo `deepseek-flash` e retornam junto com ações estruturadas (abrir uma receita, trocar uma refeição, registrar água etc.). Sem chave, o motor local em `chatbot.js` assume automaticamente.
 

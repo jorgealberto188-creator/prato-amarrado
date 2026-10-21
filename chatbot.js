@@ -1,5 +1,5 @@
 /* =========================================================
-   Nina — assistente contextual do prato.
+   Nina — assistente contextual do Prato Amarrado.
    Motor local de intenções: funciona offline, sem enviar dados.
    ========================================================= */
 
@@ -139,7 +139,7 @@
 
   function welcome(ctx) {
     return {
-      text: `Oi, ${ctx.name}! Eu sou a Nina, assistente do prato.\nPosso te ajudar a entender seu dia, escolher ou trocar uma receita, registrar água e encontrar o que precisa no app. Você também pode falar pelo microfone ou anexar uma foto da refeição para eu analisar. Por onde começamos?`,
+      text: `Oi, ${ctx.name}! Eu sou a Nina, assistente do Prato Amarrado.\nPosso te ajudar a entender seu dia, escolher ou trocar uma receita, registrar água e encontrar o que precisa no app. Você também pode falar pelo microfone ou anexar uma foto da refeição para eu analisar. Por onde começamos?`,
       actions: [
         actionGo("meu-dia", "Ver meu dia", "home"),
         actionGo("receitas", "Explorar receitas", "book"),
@@ -166,7 +166,7 @@
 
   function help(ctx) {
     return {
-      text: `Eu sou um guia dentro do prato. Posso:\n• explicar suas calorias, macros e refeições;\n• sugerir receitas por refeição, ingrediente ou preferência;\n• trocar uma refeição com um clique;\n• abrir a lista de compras, registrar água e ajustar suas metas.\n\nÉ só perguntar do seu jeito — sem comando especial.`,
+      text: `Eu sou um guia dentro do Prato Amarrado. Posso:\n• explicar suas calorias, macros e refeições;\n• sugerir receitas por refeição, ingrediente ou preferência;\n• trocar uma refeição com um clique;\n• abrir a lista de compras, registrar água e ajustar suas metas.\n\nÉ só perguntar do seu jeito — sem comando especial.`,
       actions: [
         actionGo("receitas", "Ver receitas", "book"),
         actionGo("semana", "Plano semanal", "calendar"),
@@ -593,7 +593,7 @@
 
   function navigateReply(ctx) {
     return {
-      text: "Consigo te levar para qualquer parte do prato. O que você quer abrir?",
+      text: "Consigo te levar para qualquer parte do Prato Amarrado. O que você quer abrir?",
       actions: [
         actionGo("meu-dia", "Meu dia", "home"),
         actionGo("receitas", "Receitas", "book"),

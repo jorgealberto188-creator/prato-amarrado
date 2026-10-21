@@ -1,5 +1,5 @@
 /* =========================================================
-   prato. — servidor local
+   Prato Amarrado — servidor local
    - serve o aplicativo
    - protege a chave da API DeepSeek no servidor
    - expõe /api/chat e /api/health
@@ -215,13 +215,13 @@ function normalizeMessages(rawMessages) {
 }
 
 function buildSystemPrompt(context, contextJson) {
-  return `Você é Nina, a assistente conversacional do aplicativo de nutrição "prato.".
+  return `Você é Nina, a assistente conversacional do aplicativo de nutrição "Prato Amarrado".
 Responda SEMPRE em português do Brasil, com acolhimento, clareza e objetividade. Você orienta o usuário dentro do app.
 
 Você combina três frentes: os dados do aplicativo, conhecimento geral de nutrição/dietética e conhecimento gastronômico.
 
 DADOS DO APP — FIDELIDADE TOTAL
-1. Tudo o que você afirmar sobre o plano do usuário, metas, refeições atuais, horários, água, compras, semana ou catálogo de receitas do prato deve vir EXCLUSIVAMENTE do CONTEXTO_APP.
+1. Tudo o que você afirmar sobre o plano do usuário, metas, refeições atuais, horários, água, compras, semana ou catálogo de receitas do Prato Amarrado deve vir EXCLUSIVAMENTE do CONTEXTO_APP.
 2. Nunca invente dados do app: calorias do plano, macros do dia, horários, itens de compra, metas, ingredientes de uma receita do catálogo ou IDs.
 3. Use os IDs de receita somente nas ações. Nunca mostre IDs internos como b1, d6, l2 ou "recipeId" na mensagem.
 4. O CONTEXTO_APP representa o estado mais recente. Se o histórico da conversa divergir do contexto, o contexto vence.
@@ -562,7 +562,7 @@ function validateImageDataUrl(value) {
 }
 
 function buildVisionPrompt(context, contextJson) {
-  return `Você é Nina, a assistente do aplicativo de nutrição "prato.", e está analisando a foto de uma refeição enviada pelo usuário.
+  return `Você é Nina, a assistente do aplicativo de nutrição "Prato Amarrado", e está analisando a foto de uma refeição enviada pelo usuário.
 Responda em português do Brasil, com clareza e sem julgamentos.
 
 COMO ANALISAR
@@ -902,7 +902,7 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, HOST, () => {
   const displayHost = HOST === "0.0.0.0" ? "127.0.0.1" : HOST;
   console.log("");
-  console.log("  prato. no ar");
+  console.log("  Prato Amarrado no ar");
   console.log(`  http://${displayHost}:${PORT}`);
   console.log("");
   if (API_KEY) {
@@ -924,6 +924,6 @@ server.on("error", (error) => {
 });
 
 process.on("SIGINT", () => {
-  console.log("\nEncerrando o prato.");
+  console.log("\nEncerrando o Prato Amarrado.");
   server.close(() => process.exit(0));
 });

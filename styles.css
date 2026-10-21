@@ -1,5 +1,5 @@
 /* =========================================================
-   prato. — nutrição cotidiana
+   Prato Amarrado — nutrição cotidiana
    ========================================================= */
 
 :root {
@@ -139,11 +139,12 @@ ul, ol { margin: 0; padding: 0; }
 
 .brand-word {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: clamp(23px, 1.9vw, 27px);
   font-weight: 600;
-  letter-spacing: -.055em;
+  letter-spacing: -.045em;
   line-height: 1;
   color: #fbf5e9;
+  white-space: nowrap;
 }
 
 .brand-dot { color: var(--coral); }
@@ -330,7 +331,7 @@ ul, ol { margin: 0; padding: 0; }
 }
 
 .topbar-brand { display: none; }
-.topbar-brand .brand-word { font-size: 28px; color: var(--forest); }
+.topbar-brand .brand-word { font-size: 26px; color: var(--forest); }
 .topbar-brand .brand-dot { color: var(--coral); }
 
 .topbar-copy {
@@ -3955,7 +3956,7 @@ ul, ol { margin: 0; padding: 0; }
 @media (max-width: 560px) {
   body.chat-open { overflow: hidden; }
   .topbar { height: 64px; padding: 0 17px; }
-  .topbar-brand .brand-word { font-size: 26px; }
+  .topbar-brand .brand-word { font-size: 22px; }
   .top-search { width: 38px; height: 38px; }
   .btn-topbar { min-height: 38px; padding: 9px 12px; }
   .btn-topbar span { display: none; }

@@ -1,5 +1,5 @@
 /* =========================================================
-   prato. — lógica do aplicativo
+   Prato Amarrado — lógica do aplicativo
    ========================================================= */
 
 const STORAGE_KEY = "prato.v1";
@@ -1662,7 +1662,7 @@ function buildDeepSeekContext() {
   const context = buildChatContext();
   return {
     app: {
-      name: "prato.",
+      name: "Prato Amarrado",
       assistant: "Nina",
       selectedDate: context.selectedDate,
       weekday: context.weekday,
@@ -1751,7 +1751,7 @@ function buildDeepSeekPhotoContext() {
   const context = buildChatContext();
   return {
     app: {
-      name: "prato.",
+      name: "Prato Amarrado",
       assistant: "Nina",
       selectedDate: context.selectedDate,
       weekday: context.weekday,
@@ -2184,7 +2184,7 @@ function initializeChatConversation() {
   if (!window.PratoChat) {
     chatState.messages = [{
       role: "bot",
-      text: "Oi! Estou aqui para te ajudar a navegar pelo prato. O que você quer fazer?",
+      text: "Oi! Estou aqui para te ajudar a navegar pelo Prato Amarrado. O que você quer fazer?",
       actions: [
         { action: "navigate", route: "meu-dia", label: "Abrir meu dia", icon: "home" },
         { action: "navigate", route: "receitas", label: "Ver receitas", icon: "book" }

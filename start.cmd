@@ -21,7 +21,7 @@ if not defined NODE_EXE (
 )
 
 echo.
-echo Iniciando prato em http://127.0.0.1:4173
+echo Iniciando Prato Amarrado em http://127.0.0.1:4173
 echo Pressione Ctrl+C para encerrar.
 echo.
 "%NODE_EXE%" server.js
